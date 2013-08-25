@@ -17,49 +17,43 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.concurrent.Future;
 
 /**
  * Created with IntelliJ IDEA.
  * User: lbouin
  * Date: 17/08/13
- * Time: 15:46
+ * Time: 21:46
  */
 
 @Controller
 @RequestMapping("/stock")
 public class StockController {
 
-
-    //TODO: java.lang.NullPointerException
-    //	com.lbo.hystocks.controller.StockController.getStock(StockController.java:44)
-    //	com.lbo.hystocks.controller.StockController.getStock(StockController.java:49)
-
-
-
     @Autowired
     private ApplicationContext applicationContext;
 
     @RequestMapping(value = "/{symbol}")
     @ResponseBody
-    public String getStock( @PathVariable String symbol ) {
+    public String getStock( @PathVariable String symbol ) throws Exception{
 
         Map<String, Object> result = new LinkedHashMap<String, Object>();
 
         HystrixCommand<String> yahooStockCommand = (HystrixCommand<String>) applicationContext.getBean("yahooStockHistoryCommand", symbol);
         HystrixCommand<Map<String, String>> googleStockInfoCommand = (HystrixCommand<Map<String, String>>) applicationContext.getBean("googleStockInfoCommand", symbol);
 
-        String yahoohistory = yahooStockCommand.execute();
-        Map<String, String> googleInfos = googleStockInfoCommand.execute();
+        Future<String> yahoohistory = yahooStockCommand.queue();
+        Future<Map<String, String>> googleInfos = googleStockInfoCommand.queue();
 
-        result.putAll(googleInfos);
-        result.put("history", yahoohistory);
+        result.putAll(googleInfos.get());
+        result.put("history", yahoohistory.get());
 
         ObjectMapper mapper = new ObjectMapper();
 
         String s = null;
 
         try {
-            s = mapper.writeValueAsString(googleInfos);
+            s = mapper.writeValueAsString(result);
         } catch (IOException e) {
             e.printStackTrace();
         }
