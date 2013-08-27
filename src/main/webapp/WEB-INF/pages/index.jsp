@@ -38,7 +38,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Hystocks</a>
+          <a class="navbar-brand" href="/index">Hystocks</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -72,41 +72,31 @@
       </div>
 
       <!-- Main component for a primary marketing message or call to action -->
-      <div class="jumbotron">
 
-       <div class="row">
-           <div class="col-md-8">
-                 <div class="row"><div class="col-md-12"><span style="font-size:xx-large !important;">${name}</span></div></div>
-                 <div class="row"><div class="col-md-12"><span style="font-size:large !important;">${e}:${t} - ${xlt}</span></div></div>
-                 <div class="row"><div class="col-md-12"><span style="font-size:xx-large !important;">${l}</span><span style="font-size:x-large !important;"> ${c}</span><span style="font-size:x-large !important;"> (${cp})</span></div></div>
-          </div>
-          <div class="col-md-4">
 
-              <table class="table" style="font-size:medium !important;">
-                  <tr><td>Open</td><td>${op}</td></tr>
-                  <tr><td>High</td><td>${hi}</td></tr>
-                  <tr><td>Low</td><td>${lo}</td></tr>
-                  <tr><td>Volume</td><td>${vo}</td></tr>
-                  <tr><td>Avg Vol</td><td>${avvo}</td></tr>
-                  <tr><td>Mkt Cap</td><td>${mc}</td></tr>
-              </table>
 
-          </div>
 
-       </div>
-       </div>
 
-        <div id="graphdiv" style="width:100%; height:300px;"></div>
-        <script type="text/javascript">
-          g2 = new Dygraph(
-            document.getElementById("graphdiv"),
-            "/csv/${t}", // path to CSV file
-             {
-                 drawXGrid:false,
-                 drawYGrid:false
-                }         // options
-          );
-        </script>
+          <div class="panel panel-default">
+                   <!-- Default panel contents -->
+                   <div class="panel-heading">Welcome</div>
+                   <div class="panel-body">
+
+                       <p>
+                         Choose a ticker from the stocks menu
+                       </p>
+                       <p>
+                           <a class="btn btn-default" href="GOOG">Google</a>
+                           <a class="btn btn-default" href="YHOO">Yahoo!</a>
+                           <a class="btn btn-default" href="FB">Facebook</a>
+                           <a class="btn btn-default" href="MHFI">McGraw Hill Financial Inc</a>
+                       </p>
+
+                   </div>
+
+
+                 </div>
+
 
     </div> <!-- /container -->
 

@@ -1,5 +1,6 @@
 package com.lbo.hystocks.command;
 
+import com.google.common.base.Splitter;
 import com.netflix.config.DynamicBooleanProperty;
 import com.netflix.config.DynamicLongProperty;
 import com.netflix.config.DynamicPropertyFactory;
@@ -14,6 +15,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+
+import java.nio.charset.Charset;
 
 /**
  * User: lbouin
@@ -53,7 +56,8 @@ public class YahooStockHistoryCommand extends HystrixCommand<String> {
         }
 
         // a real example would do work like a network call here
-        String strUrl = "http://ichart.finance.yahoo.com/table.csv?s=" + ticker + "&a=0&b=1&c=2008&d=3&e=30&f=2008&ignore=.csv";
+        //String strUrl = "http://ichart.finance.yahoo.com/table.csv?s=" + ticker + "&a=0&b=1&c=2008&d=3&e=30&f=2008&ignore=.csv";
+        String strUrl = "http://ichart.finance.yahoo.com/table.csv?s=" + ticker + "&a=0&b=1&c=2008&d=7&e=30&f=2013&ignore=.csv";
         String csvData = null;
 
         HttpClient client = new HttpClient();
@@ -76,11 +80,11 @@ public class YahooStockHistoryCommand extends HystrixCommand<String> {
 
         // Deal with the response.
         // Use caution: ensure correct character encoding and is not binary data
+
         csvData = new String(responseBody);
 
         //return the CSV for the ticker
         return csvData;
-
     }
 
     @Override
