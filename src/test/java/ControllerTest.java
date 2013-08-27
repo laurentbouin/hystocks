@@ -37,16 +37,24 @@ public class ControllerTest {
     }
 
     @Test
+    public void shouldCSV() throws Exception {
+
+        this.mockMvc.perform(get("/csv/GOOG").accept(MediaType.TEXT_PLAIN))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value("Google Inc"));
+    }
+
+    @Test
     public void shouldGetGoogleStock() throws Exception {
 
-        this.mockMvc.perform(get("/stock/GOOG").accept(MediaType.APPLICATION_JSON))
+        this.mockMvc.perform(get("/data/GOOG").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("Google Inc"));
     }
 
     @Test
     public void shouldGetEmptyResult() throws Exception {
-        this.mockMvc.perform(get("/stock/LBO").accept(MediaType.APPLICATION_JSON))
+        this.mockMvc.perform(get("/data/LBO").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").doesNotExist());
     }
