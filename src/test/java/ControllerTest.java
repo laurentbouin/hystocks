@@ -40,8 +40,7 @@ public class ControllerTest {
     public void shouldCSV() throws Exception {
 
         this.mockMvc.perform(get("/csv/GOOG").accept(MediaType.TEXT_PLAIN))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name").value("Google Inc"));
+                .andExpect(status().isOk());
     }
 
     @Test
