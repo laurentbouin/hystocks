@@ -41,6 +41,13 @@ public class StockController {
         return "index";
     }
 
+    /**
+     * Generate a CSV content base on the Yahoo historical data.
+     * Here we only keep the date, High and Low
+     * @param symbol The symbol to look up
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/csv/{symbol}", method = RequestMethod.GET)
     @ResponseBody
     public String csv(@PathVariable String symbol) throws Exception  {
