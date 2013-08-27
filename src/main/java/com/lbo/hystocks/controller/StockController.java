@@ -1,5 +1,8 @@
 package com.lbo.hystocks.controller;
 
+import com.google.common.base.Joiner;
+import com.google.common.base.Splitter;
+import com.google.common.collect.Iterables;
 import com.lbo.hystocks.command.YahooStockHistoryCommand;
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandKey;
@@ -27,15 +30,49 @@ import java.util.concurrent.Future;
  */
 
 @Controller
-@RequestMapping("/stock")
+@RequestMapping("/")
 public class StockController {
 
     @Autowired
     private ApplicationContext applicationContext;
 
-    @RequestMapping(value = "/{symbol}")
+    @RequestMapping(value ="/index", method = RequestMethod.GET)
+    public String index() {
+        return "index";
+    }
+
+    @RequestMapping(value = "/csv/{symbol}", method = RequestMethod.GET)
     @ResponseBody
-    public String getStock( @PathVariable String symbol ) throws Exception{
+    public String csv(@PathVariable String symbol) throws Exception  {
+
+        HystrixCommand<String> yahooStockCommand = (HystrixCommand<String>) applicationContext.getBean("yahooStockHistoryCommand", symbol);
+
+        Future<String> futureYahoohistory = yahooStockCommand.queue();
+        String history = futureYahoohistory.get();
+
+        StringBuilder buffer = new StringBuilder();
+
+        Iterable<String> lines = Splitter.on("\n").split(history);
+        Joiner joiner = Joiner.on(",");
+
+        for (String line : lines) {
+
+            if (!line.isEmpty()) {
+                Iterable<String> columns = Splitter.on(",").split(line);
+
+                String[] columnsAsArray = Iterables.toArray(columns, String.class);
+
+                buffer = joiner.appendTo(buffer, columnsAsArray[0], columnsAsArray[2],columnsAsArray[3] + "\n");
+            }
+        }
+
+        return buffer.toString();
+
+    }
+
+    @RequestMapping(value = "/data/{symbol}")
+    @ResponseBody
+    public String getStock( @PathVariable String symbol ) throws Exception {
 
         Map<String, Object> result = new LinkedHashMap<String, Object>();
 
@@ -60,7 +97,7 @@ public class StockController {
         return s;
     }
 
-    @RequestMapping(value = "/view/{symbol}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{symbol}", method = RequestMethod.GET)
     public String view(@PathVariable String symbol, ModelMap model) {
 
         HystrixCommand<String> yahooStockCommand = (HystrixCommand<String>) applicationContext.getBean("yahooStockHistoryCommand", symbol);
@@ -74,7 +111,7 @@ public class StockController {
         model.addAttribute( "symbol", symbol);
         model.addAttribute( "history", yahooHistory);
 
-        return "list2";
+        return "ticker";
 
     }
 
@@ -83,7 +120,6 @@ public class StockController {
     public String getMetrics() {
 
         HystrixCommandMetrics yahooStockMetrics = HystrixCommandMetrics.getInstance(HystrixCommandKey.Factory.asKey(YahooStockHistoryCommand.class.getSimpleName()));
-        // print out metrics
         StringBuilder out = new StringBuilder();
         out.append("\n");
         out.append("# YahooStockHistoryCommand: " + getStatsStringFromMetrics(yahooStockMetrics)).append("\n");

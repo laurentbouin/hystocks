@@ -93,11 +93,13 @@ public class GoogleStockInfoCommand extends HystrixCommand<Map<String, String>> 
         jsonData = jsonData.replace("// [", "");
         jsonData = jsonData.replace("]", "");
 
+
         ObjectMapper mapper = new ObjectMapper();
 
         //convert JSON string to Map
         map = mapper.readValue(jsonData, new TypeReference<HashMap<String, String>>() {
         });
+        map.put("xlt",map.get("lt"));
 
         return map;
     }
