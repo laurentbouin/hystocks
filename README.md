@@ -25,14 +25,10 @@ See the [Wiki](https://github.com/Netflix/Hystrix/wiki/) for full documentation,
 
 See the [Javadoc](http://netflix.github.com/Hystrix/javadoc) for the API.
 
-## Communication
-
-- Google Group: [HystrixOSS](http://groups.google.com/d/forum/hystrixoss)
-- Twitter: [@HystrixOSS](http://twitter.com/HystrixOSS)
-- [GitHub Issues](https://github.com/Netflix/Hystrix/issues)
-
 Archaius
 =====
+
+[Project Home](https://github.com/Netflix/archaius/)
 
 Documentation
 --------------
