@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
 	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
-    <display-name>Spring Web MVC Application</display-name>
+    <display-name>Spring Web MVC Application with Hystrix and Archaius</display-name>
 
     <servlet>
         <servlet-name>mvc-dispatcher</servlet-name>
@@ -12,50 +12,22 @@
     </servlet>
 
     <servlet>
-            <description></description>
-            <display-name>HystrixMetricsStreamServlet</display-name>
-            <servlet-name>HystrixMetricsStreamServlet</servlet-name>
-            <servlet-class>com.netflix.hystrix.contrib.metrics.eventstream.HystrixMetricsStreamServlet</servlet-class>
-        </servlet>
+        <description></description>
+        <display-name>HystrixMetricsStreamServlet</display-name>
+        <servlet-name>HystrixMetricsStreamServlet</servlet-name>
+        <servlet-class>com.netflix.hystrix.contrib.metrics.eventstream.HystrixMetricsStreamServlet</servlet-class>
+    </servlet>
 
-        <servlet-mapping>
-            <servlet-name>HystrixMetricsStreamServlet</servlet-name>
-            <url-pattern>/hystrix.stream</url-pattern>
-        </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HystrixMetricsStreamServlet</servlet-name>
+        <url-pattern>/hystrix.stream</url-pattern>
+    </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>mvc-dispatcher</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
-    <servlet-mapping>
-        <servlet-name>default</servlet-name>
-        <url-pattern>*.css</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>default</servlet-name>
-        <url-pattern>*.js</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>default</servlet-name>
-        <url-pattern>*.gif</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>default</servlet-name>
-        <url-pattern>*.jpg</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>default</servlet-name>
-        <url-pattern>*.png</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>default</servlet-name>
-        <url-pattern>*.csv</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>default</servlet-name>
-        <url-pattern>*.html</url-pattern>
-    </servlet-mapping>
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>/WEB-INF/mvc-dispatcher-servlet.xml</param-value>
