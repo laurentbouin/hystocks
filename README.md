@@ -1,4 +1,4 @@
-# Sample Application for Hystrix, Archaius & Spring
+Sample Application for Hystrix, Archaius & Spring
 
 This application shows how to integrate Hystrix commands in a Spring application.
 
@@ -27,3 +27,10 @@ See the [Javadoc](http://netflix.github.com/Hystrix/javadoc) for the API.
 - Google Group: [HystrixOSS](http://groups.google.com/d/forum/hystrixoss)
 - Twitter: [@HystrixOSS](http://twitter.com/HystrixOSS)
 - [GitHub Issues](https://github.com/Netflix/Hystrix/issues)
+
+Archaius
+=====
+
+Documentation
+--------------
+Please see [wiki] (https://github.com/Netflix/archaius/wiki) for detail documentations.
