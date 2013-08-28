@@ -15,7 +15,9 @@ This application shows how to integrate Hystrix commands in a Spring application
 
 # Hystrix: Latency and Fault Tolerance for Distributed Systems
 
-Hystrix is a latency and fault tolerance library designed to isolate points of access to remote systems, services and 3rd party libraries, stop cascading failure and enable resilience in complex distributed systems where failure is inevitable.
+##Hystrix is a latency and fault tolerance library designed to isolate points of access to remote systems, services and 3rd party libraries, stop cascading failure and enable resilience in complex distributed systems where failure is inevitable.
+
+[Project Home](https://github.com/Netflix/Hystrix/)
 
 ## Full Documentation
 
