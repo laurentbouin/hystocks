@@ -1,4 +1,5 @@
 Sample Application for Hystrix, Archaius & Spring
+=====
 
 This application shows how to integrate Hystrix commands in a Spring application.
 
